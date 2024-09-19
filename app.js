@@ -103,7 +103,7 @@ app.use(
     ]
   })
 );
-app.use(compression);
+// app.use(compression);
 
 // Test middlware
 app.use((req, res, next) => {
