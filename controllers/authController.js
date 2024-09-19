@@ -23,6 +23,7 @@ const createSendToken = (user, statusCode, res) => {
   if (process.env.NODE_ENV === 'production') cookieOptons.secure = true;
 
   // Remove the password from the output
+
   user.password = undefined;
   res.cookie('jwt', token);
   res.status(statusCode).json({
@@ -89,15 +90,7 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorect email or password', 401));
   }
 
-  // test123456
-  // 3) If everything ok, send token to client
-
-  // const token = signToken(user._id);
-  // res.status(200).json({
-  //   status: 'success',
-  //   token
-  // });
-
+  res.locals.user = user;
   createSendToken(user, 200, res);
 });
 

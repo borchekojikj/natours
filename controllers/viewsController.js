@@ -5,8 +5,8 @@ const User = require('./../models/userModel');
 const Booking = require('./../models/bookingModel');
 
 exports.getOverview = catchAsync(async (req, res, next) => {
-  console.log('asd');
   // 1) Get tour data from collection
+
   const tours = await Tour.find();
   // 2) Build template
 
