@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 // const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -23,6 +24,27 @@ const app = express();
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+
+// IMPLAMENT CORS
+
+app.use(cors());
+// Access-Control-Allow-Origin
+// api.natours.com, front-end natours.com
+
+// We only allow this ulr to make request
+// app.use(
+//   cors({
+//     origin: 'https://www.natours.com'
+//   })
+// );
+
+// For not simple request, DEL,PUT,PATCH or req with cookies etc.
+
+// For only one Route
+// app.options('/api/v1/tours/:id', cors());
+
+// For all Routes
+app.options('*', cors());
 
 // 1) GLOBAL MIDDLEWARES
 app.use(express.static(path.join(__dirname, 'public')));
@@ -115,6 +137,7 @@ app.use((req, res, next) => {
 // 3) ROUTES
 
 app.use('/', viewRouter);
+// app.use('/api/v1/tours', cors(), tourRouter); // For a specific route
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);

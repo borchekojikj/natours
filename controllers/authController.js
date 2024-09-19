@@ -20,6 +20,7 @@ const createSendToken = (user, statusCode, res) => {
     ),
     httpOnly: true
   };
+
   if (process.env.NODE_ENV === 'production') cookieOptons.secure = true;
 
   // Remove the password from the output
