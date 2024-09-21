@@ -42,7 +42,7 @@ exports.uploadTourImages = upload.fields([
 exports.resizeTourImages = catchAsync(async (req, res, next) => {
   if (!req.files.imageCover || !req.files.images) return next();
 
-  console.log(req.files.imageCover);
+  // console.log(req.files.imageCover);
   // 1) Cover image
   req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
 
@@ -67,7 +67,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
 
   req.body.images = imagesArr;
   await Promise.all(imgPros);
-  console.log(req.files.images);
+  // console.log(req.files.images);
   next();
 });
 
@@ -184,7 +184,7 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
   const tours = await Tour.find({
     startLocation: { $geoWithin: { $centerSphere: [[lng, lat], radius] } }
   });
-  console.log(distance, lat, lng, unit);
+  // console.log(distance, lat, lng, unit);
 
   res.status(200).json({
     status: 'success',
